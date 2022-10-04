@@ -4,13 +4,13 @@ using namespace std;
 int main()
 {
     printf("HII THERE WHAT DO YOU WANT TO FIND BELOW\n");
-    printf("Enter--> 1 for ADD\nEnte-->2 for SUBTRACTION\nEnter-->3 for MULTIPLICATION\nEnter-->4 for DIVIDE\nEnter 5--> for clear screen\n");
-    int option;
+    printf("Enter--> '+' for ADD\nEnte-->'-' for SUBTRACTION\nEnter-->'*' for MULTIPLICATION\nEnter-->'/' for DIVIDE\nEnter-->'0' for clear screen\n");
+    char option;
     printf("Enter the choice\n");
-    scanf("%d",&option);
+    scanf("%c",&option);
         switch(option)
         {
-            case 1:
+            case '+':
             {
                 double num1;
                 double num2;
@@ -22,7 +22,7 @@ int main()
                 printf("ADDITION of the two number is %.2lf\n",addition);
                 break;
             }
-            case 2:
+            case '-':
             {
                 double num1;
                 double num2;
@@ -34,7 +34,7 @@ int main()
                 printf("SUBTRACTON of the two number is %2.lf\n",subtraction);
                 break;
             }
-            case 3:
+            case '*':
             {
                 double num1;
                 double num2;
@@ -46,7 +46,7 @@ int main()
                 printf("MULTIPLICATION of the two number is %2.lf\n",multiplication);
                 break;
             }
-            case 4:
+            case '/':
             {
                 double num1;
                 double num2;
@@ -58,7 +58,7 @@ int main()
                 printf("DIVISION of the two number is %2.lf\n",division);
                 break;
             }
-            case 5:
+            case '0':
             {
                 system("cls");
                 break;
