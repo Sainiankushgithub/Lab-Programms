@@ -1,4 +1,4 @@
-// WAP TO CHECK WHETHER NUMBER IS PRIME OR NOT
+// WAP TO CHECK WHETHER NUMBER IS perfect OR NOT
 #include<bits/stdc++.h>
 using namespace std;
 int main()
