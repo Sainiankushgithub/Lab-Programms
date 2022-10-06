@@ -1,4 +1,4 @@
-// WAP TO PRINT THE SERIES AS 2 3 5 7 11 13 17 19  . . . . . . N WHERE N IS GIVEN BY THE USER
+// WAP TO CHECK OUT ENTERED NUMBER IS A STRONG NUMBER OR NOT?
 #include<bits/stdc++.h>
 using namespace std;
 int main()
