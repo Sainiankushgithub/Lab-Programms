@@ -1,4 +1,4 @@
-// WAP TO PRINT THE SERIE AS 1 3 7 5 ......... N
+// WAP TO PRINT THE SERIE AS 1 3 7 15 ......... N
 // LOGIC--> {0*2+1}
 #include<bits/stdc++.h>
 using namespace std;
