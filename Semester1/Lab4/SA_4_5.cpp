@@ -18,5 +18,5 @@ int main()
         }
     }
     printf("HCF/GCD of the two number is %d\n",gcd);
-return 0;
+         return 0;
 }
