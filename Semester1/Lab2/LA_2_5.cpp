@@ -9,8 +9,12 @@ int main()
     printf("Enter the second number\n");
     scanf("%d",&b);
     printf("a and b before swapping\n a=%d \n b=%d\n",a,b);
-    a=a+b-a;
-    b=a+b-a;
+    // LOGIC A=A-B
+    //       B=A+B
+    //       A=B-A
+    a=a-b;
+    b=a+b;
+    a=b-a;
     printf("a and b after swapping\n a=%d \n b=%d\n",a,b);
 return 0;
 }
