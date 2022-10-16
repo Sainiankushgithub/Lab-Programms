@@ -1,4 +1,4 @@
-// WAP TO FIND OUT THE SUM OF ELEMENTS STIRED IN THE MATRIX
+// WAP TO FIND OUT THE SUM OF ELEMENTS SToRED IN THE MATRIX
 #include<bits/stdc++.h>
 using namespace std;
 int main()
