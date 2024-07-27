@@ -36,6 +36,21 @@ void createDesc(const char *fileName,int start ,int end)
   }
   fclose(file);
 }
+void createRand(const char*fileName,int end)
+{
+  FILE *file=fopen(fileName,"w");
+  if(file==NULL)
+  {
+    printf("Error! could not open the file %s for writing \n");
+    exit(1);
+  }
+  srand(time(0));
+  for(int i=0;i<size;i++)
+  {
+    fprintf(file,"%d ",rand()%end+1);
+  }
+  fclose(file);
+}
 void display(const char*fileName)
 {
   FILE *file=fopen(fileName,"r");
@@ -55,6 +70,7 @@ int main()
 {
   createAsc("inAsce.dat",0,5);
   createDesc("inDesc.dat",45,50);
+  createRand("inRand.dat",50);
   char file_name[20];
   printf("Enter the file name to display its content\n");
   scanf("%s",&file_name);
