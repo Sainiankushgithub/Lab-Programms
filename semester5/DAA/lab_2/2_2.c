@@ -2,45 +2,84 @@
 2.2 Aim of the program: Write a program in C to find GCD of two numbers using recursion. Read all pair of numbers from a file and store the result in a separate file.
 */
 #include<stdio.h>
-// USED ECLUDIEAN ALGORITHM 
-int gcd_loop(int num1,int num2)
+#include<stdlib.h>
+#include<time.h>
+void createFileIn(const char *fileName,int n)
 {
-  while(num1!=num2)
+  FILE *file=fopen(fileName,"w");
+  if(file==NULL)
   {
-    if(num1>num2)
-    {
-      num1-=num2;
-    }
-    else
-    {
-      num2-=num1;
-    }
+    printf("Error ! file could not open to write \n");
+    exit(1);
   }
-  return num1;
+  srand(time(0));
+  for(int i=0;i<n*2;i++)
+  {
+    fprintf(file,"%d ",rand()%50+1);
+  }
+  fclose(file);
 }
-int gcd_recursion(int num1,int num2)
+void createFileOut(const char*file1,const char *file2)
 {
-  if(num1==num2)
+  FILE *inputFile=fopen(file1,"r");
+  if(inputFile==NULL)
   {
-    return num1;
+    printf("Error ! could open file %s \n",file1);
+    exit(1);
   }
-  if(num1>num2)
+  FILE *outputFile=fopen(file2,"w");
+  if(outputFile==NULL)
   {
-    return gcd_recursion(num1-num2,num2);
+    printf("Error ! could not open the file %s to write\n",file2);
+    exit(1);
+  }
+  int num1,num2;
+  while(fscanf(inputFile,"%d %d",&num1,&num2)==2)
+  {
+    int result=gcd_recursion(num1,num2);
+    fprintf(outputFile,"The gcd of %d and %d is %d\n",num1,num2,result);
+  }
+  fclose(inputFile);
+  fclose(outputFile);
+}
+// Algorithm
+int gcd_recursion(int a,int b)
+{
+  if(a==b)
+  {
+    return a;
+  }
+  if(a>b)
+  {
+    return gcd_recursion(a-b,b);
   }
   else{
-    return gcd_recursion(num1,num2-num1);
+    return gcd_recursion(a,b-a);
   }
+}
+void display(const char*fileName)
+{
+  FILE *file=fopen(fileName,"r");
+  if(file==NULL)
+  {
+    printf("Error ! could not open the file %s to read\n",fileName);
+    exit(1);
+  }
+  char buffer[256];
+  while(fgets(buffer,sizeof(buffer),file))
+  {
+    printf("%s",buffer);
+  }
+  fclose(file);
 }
 int main()
 {
-  int num1,num2;
-  printf("Enter the number1 and number2 \n");
-  scanf("%d%d",&num1,&num2);
-  printf("Your entered numbers are : %d , %d \n",num1,num2);
-  int loop_result=gcd_loop(num1,num2);
-  printf("LOOP \nGcd of two number is : %d \n",loop_result);
-  int recursion_result=gcd_recursion(num1,num2);
-  printf("RECURSION \nGcd of two number is : %d \n",recursion_result);
+  int n;
+  printf("Enter the number of pair of gcd you wanted to store in a file\n");
+  scanf("%d",&n);
+  createFileIn("inGCD.dat",n);
+  createFileOut("inGCD.dat","outGCD.dat");
+  printf("Displaying the content of outputfile\n");
+  display("outGCD.dat");
   return 0;
 }
