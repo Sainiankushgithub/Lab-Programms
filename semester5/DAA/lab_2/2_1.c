@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<string.h>
 void createFile(const char * fileName)
 {
   FILE* file=fopen(fileName,"w");
@@ -9,7 +10,7 @@ void createFile(const char * fileName)
     exit(1);
   }
   int n;
-  printf("how many elements you want to store in file ");
+  printf("how many elements you want to store in file\n");
   scanf("%d",&n);
   printf("Enter the elements in a file\n");
   int ele;
@@ -27,26 +28,44 @@ void createFileOut(const char*file1,const char*file2)
   int num;
   while(fscanf(inputfile,"%d",&num)!=EOF)
   {
-    char* str=(char*)malloc(2*sizeof(char));
-    if(str==NULL)
-    {
-      printf("Memory Allocation failed\n");
-      exit(1);
-    }
-    strcpy(str,"");
-    convertBinary(num,str,0);
-    int result=atoi(str);
-
+    char str[17];
+    memset(str,'0',16);
+    str[16]='\0';
+    convertBinary(num,str,15);
+    fprintf(outputfile,"The Binary Equivalent of %d is : %s\n",num,str);
   }
+  fclose(inputfile);
+  fclose(outputfile);
 }
-void convertBinary(int num,char *str,int i)
+void convertBinary(int num,char str[],int index)
 {
-  str=(char*)realloc(str,strlen(str)+2);
   if(num<2)
+  {
+    str[index]='0'+num;
+    return;
+  }
+  convertBinary(num/2,str,index-1);
+  str[index]='0'+(num%2);
+}
+void display(const char*fileName)
+{
+  FILE*file=fopen(fileName,"r");
+  if(file==NULL)
+  {
+    printf("Error ! could not open file %s to read\n",fileName);
+    exit(1);
+  }
+  char Buffer[256];
+  while(fgets(Buffer,sizeof(Buffer),file))
+  {
+    printf("%s",Buffer);
+  }
+  fclose(file);
 }
 int main()
 {
   createFile("inDesc.dat");
-  createFileOut("inDesc.dat","outDec.dat");
+  createFileOut("inDesc.dat","outBin.dat");
+  display("outBin.dat");
   return 0;
 }
