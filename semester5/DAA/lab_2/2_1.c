@@ -27,8 +27,22 @@ void createFileOut(const char*file1,const char*file2)
   int num;
   while(fscanf(inputfile,"%d",&num)!=EOF)
   {
-    
+    char* str=(char*)malloc(2*sizeof(char));
+    if(str==NULL)
+    {
+      printf("Memory Allocation failed\n");
+      exit(1);
+    }
+    strcpy(str,"");
+    convertBinary(num,str,0);
+    int result=atoi(str);
+
   }
+}
+void convertBinary(int num,char *str,int i)
+{
+  str=(char*)realloc(str,strlen(str)+2);
+  if(num<2)
 }
 int main()
 {
