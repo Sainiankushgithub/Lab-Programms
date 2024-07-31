@@ -27,7 +27,7 @@ void createFileOut(const char*file1,const char*file2)
   int num;
   while(fscanf(inputfile,"%d",&num)!=EOF)
   {
-
+    
   }
 }
 int main()
