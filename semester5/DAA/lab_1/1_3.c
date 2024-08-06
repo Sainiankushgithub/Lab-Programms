@@ -1,80 +1,118 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
-// Function to count the number of duplicates
-int countDuplicates(int arr[], int n) {
-    int count = 0;
-    for (int i = 0; i < n; i++) {
-        for (int j = i + 1; j < n; j++) {
-            if (arr[i] == arr[j]) {
-                count++;
-                break; // To avoid counting multiple duplicates of the same value multiple times
-            }
-        }
-    }
-    return count;
-}
+void createFile(const char* filename, int n);
+void readFile(const char* filename, int* arr, int n);
+int countDuplicates(int* arr, int n);
+int findMostRepeating(int* arr, int n);
 
-// Function to find the most repeating element
-int findMostRepeating(int arr[], int n) {
-    int maxCount = 0;
-    int mostRepeating = arr[0];
-    for (int i = 0; i < n; i++) {
-        int count = 0;
-        for (int j = 0; j < n; j++) {
-            if (arr[i] == arr[j]) {
-                count++;
-            }
-        }
-        if (count > maxCount) {
-            maxCount = count;
-            mostRepeating = arr[i];
-        }
-    }
-    return mostRepeating;
-}
-
-int main(int argc, char *argv[]) {
-    if (argc != 2) {
-        printf("Usage: %s <source_file>\n", argv[0]);
-        return 1;
-    }
-
-    char *sourceFileName = argv[1];
-    FILE *sourceFile = fopen(sourceFileName, "r");
-    if (!sourceFile) {
-        perror("Error opening source file");
-        return 1;
-    }
-
+int main() {
+    const char* filename = "numbers.txt";
     int n;
-    printf("Enter how many numbers you want to read from file: ");
+
+    // Input the size of the array
+    printf("Enter how many numbers you want to read from the file: ");
     scanf("%d", &n);
 
-    int *arr = (int *)malloc(n * sizeof(int));
-    if (!arr) {
-        perror("Memory allocation failed");
-        fclose(sourceFile);
+    // Create file with n integers
+    createFile(filename, n);
+
+    int* arr = (int*)malloc(n * sizeof(int));
+    if (arr == NULL) {
+        printf("Memory allocation failed\n");
         return 1;
     }
 
-    for (int i = 0; i < n; i++) {
-        fscanf(sourceFile, "%d", &arr[i]);
-    }
-    fclose(sourceFile);
+    // Read integers from the file
+    readFile(filename, arr, n);
 
+    // Display the content of the array
     printf("The content of the array: ");
     for (int i = 0; i < n; i++) {
         printf("%d ", arr[i]);
     }
     printf("\n");
 
-    int duplicateCount = countDuplicates(arr, n);
-    int mostRepeatingElement = findMostRepeating(arr, n);
+    // Perform operations
+    int totalDuplicates = countDuplicates(arr, n);
+    int mostRepeating = findMostRepeating(arr, n);
 
-    printf("Total number of duplicate values = %d\n", duplicateCount);
-    printf("The most repeating element in the array = %d\n", mostRepeatingElement);
+    // Output the results
+    printf("Total number of duplicate values = %d\n", totalDuplicates);
+    printf("The most repeating element in the array = %d\n", mostRepeating);
 
+    // Free allocated memory
     free(arr);
+
     return 0;
+}
+
+void createFile(const char* filename, int n) {
+    FILE* file = fopen(filename, "w");
+    if (file == NULL) {
+        printf("Error! Could not open the file to write\n");
+        exit(1);
+    }
+
+    srand(time(0)); // Seed the random number generator
+
+    for (int i = 0; i < n; i++) {
+        int randomNumber = rand() % 50; // Generate a random number between 0 and 49
+        fprintf(file, "%d ", randomNumber);
+    }
+
+    fclose(file);
+}
+
+void readFile(const char* filename, int* arr, int n) {
+    FILE* file = fopen(filename, "r");
+    if (file == NULL) {
+        printf("Error! Could not open the file to read\n");
+        exit(1);
+    }
+
+    for (int i = 0; i < n; i++) {
+        fscanf(file, "%d", &arr[i]);
+    }
+
+    fclose(file);
+}
+
+int countDuplicates(int* arr, int n) {
+    int count = 0;
+    int* freq = (int*)calloc(50, sizeof(int)); // Assume numbers are between 0 and 49
+
+    for (int i = 0; i < n; i++) {
+        freq[arr[i]]++;
+    }
+
+    for (int i = 0; i < 50; i++) {
+        if (freq[i] > 1) {
+            count++;
+        }
+    }
+
+    free(freq);
+    return count;
+}
+
+int findMostRepeating(int* arr, int n) {
+    int maxCount = 0;
+    int mostRepeating = arr[0];
+    int* freq = (int*)calloc(50, sizeof(int)); // Assume numbers are between 0 and 49
+
+    for (int i = 0; i < n; i++) {
+        freq[arr[i]]++;
+    }
+
+    for (int i = 0; i < 50; i++) {
+        if (freq[i] > maxCount) {
+            maxCount = freq[i];
+            mostRepeating = i;
+        }
+    }
+
+    free(freq);
+    return mostRepeating;
 }

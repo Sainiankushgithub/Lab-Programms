@@ -1,68 +1,95 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
+#include <limits.h>
 
-void findSecondSmallestAndLargest(int arr[], int n, int *secondSmallest, int *secondLargest) {
-    int firstSmallest, firstLargest;
-    firstSmallest = firstLargest = arr[0];
-    *secondSmallest = *secondLargest = arr[1];
-
-    // Traverse the array to find the first and second smallest and largest elements
-    for (int i = 1; i < n; i++) {
-        if (arr[i] < firstSmallest) {
-            *secondSmallest = firstSmallest;
-            firstSmallest = arr[i];
-        } else if (arr[i] < *secondSmallest && arr[i] != firstSmallest) {
-            *secondSmallest = arr[i];
-        }
-
-        if (arr[i] > firstLargest) {
-            *secondLargest = firstLargest;
-            firstLargest = arr[i];
-        } else if (arr[i] > *secondLargest && arr[i] != firstLargest) {
-            *secondLargest = arr[i];
-        }
+void createFile(const char* file1, int n) {
+    FILE* file = fopen(file1, "w");
+    if (file == NULL) {
+        printf("Error! Could not open the file to write\n");
+        exit(1);
     }
+
+    srand(time(0)); 
+
+    for (int i = 0; i < n; i++) {
+        int randomNumber = rand() % 100; 
+        fprintf(file, "%d ", randomNumber);
+    }
+
+    fclose(file);
 }
 
-int main(int argc, char *argv[]) {
-    if (argc != 2) {
-        printf("Usage: %s <source_file>\n", argv[0]);
-        return 1;
-    }
-
-    char *sourceFileName = argv[1];
-    FILE *sourceFile = fopen(sourceFileName, "r");
-    if (!sourceFile) {
-        perror("Error opening source file");
-        return 1;
-    }
-
-    int n;
-    fscanf(sourceFile, "%d", &n);
-
-    int *arr = (int *)malloc(n * sizeof(int));
-    if (!arr) {
-        perror("Memory allocation failed");
-        fclose(sourceFile);
-        return 1;
+void readFile(const char* filename, int* arr, int n) {
+    FILE* file = fopen(filename, "r");
+    if (file == NULL) {
+        printf("Error! Could not open the file to read\n");
+        exit(1);
     }
 
     for (int i = 0; i < n; i++) {
-        fscanf(sourceFile, "%d", &arr[i]);
+        fscanf(file, "%d", &arr[i]);
     }
-    fclose(sourceFile);
 
+    fclose(file);
+}
+
+void findSecondSmallestAndLargest(const int* arr, int n, int* secondSmallest, int* secondLargest) {
     if (n < 2) {
-        printf("Array should have at least two elements\n");
-        free(arr);
+        *secondSmallest = *secondLargest = INT_MIN;
+        return;
+    }
+
+    int smallest = INT_MAX, largest = INT_MIN;
+    *secondSmallest = *secondLargest = INT_MAX;
+
+    for (int i = 0; i < n; i++) {
+        if (arr[i] < smallest) {
+            *secondSmallest = smallest;
+            smallest = arr[i];
+        } else if (arr[i] < *secondSmallest && arr[i] != smallest) {
+            *secondSmallest = arr[i];
+        }
+
+        if (arr[i] > largest) {
+            *secondLargest = largest;
+            largest = arr[i];
+        } else if (arr[i] > *secondLargest && arr[i] != largest) {
+            *secondLargest = arr[i];
+        }
+    }
+
+    if (*secondSmallest == INT_MAX) *secondSmallest = INT_MIN;
+    if (*secondLargest == INT_MAX) *secondLargest = INT_MIN;
+}
+
+int main() {
+    const char* filename = "numbers.txt";
+    int n = 10; 
+    createFile(filename, n);
+
+    int* arr = (int*)malloc(n * sizeof(int));
+    if (arr == NULL) {
+        printf("Memory allocation failed\n");
         return 1;
     }
+
+    readFile(filename, arr, n);
 
     int secondSmallest, secondLargest;
     findSecondSmallestAndLargest(arr, n, &secondSmallest, &secondLargest);
 
-    printf("Second smallest element: %d\n", secondSmallest);
-    printf("Second largest element: %d\n", secondLargest);
+    if (secondSmallest == INT_MIN) {
+        printf("Second smallest element does not exist.\n");
+    } else {
+        printf("Second smallest element: %d\n", secondSmallest);
+    }
+
+    if (secondLargest == INT_MIN) {
+        printf("Second largest element does not exist.\n");
+    } else {
+        printf("Second largest element: %d\n", secondLargest);
+    }
 
     free(arr);
     return 0;

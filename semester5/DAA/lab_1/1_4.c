@@ -1,28 +1,27 @@
 #include <stdio.h>
 
-void EXCHANGE(int *p, int *q) {
+void EXCHANGE(int* p, int* q) {
     int temp = *p;
     *p = *q;
     *q = temp;
 }
 
-void ROTATE_RIGHT(int *p1, int p2) {
-    if (p2 > 1) {
-        for (int i = p2 - 1; i > 0; i--) {
-            EXCHANGE(&p1[i], &p1[i - 1]);
-        }
+void ROTATE_RIGHT(int* p1, int p2) {
+    for (int i = p2 - 1; i > 0; i--) {
+        EXCHANGE(&p1[i], &p1[i - 1]);
     }
 }
 
 int main() {
-    int n;
+    int N;
 
-    printf("Enter the size of the array (N): ");
-    scanf("%d", &n);
+    printf("Enter the size of the array: ");
+    scanf("%d", &N);
 
-    int arr[n];
-    printf("Enter the array elements: ");
-    for (int i = 0; i < n; i++) {
+    int arr[N];
+
+    printf("Enter the elements of the array: ");
+    for (int i = 0; i < N; i++) {
         scanf("%d", &arr[i]);
     }
 
@@ -31,7 +30,7 @@ int main() {
     scanf("%d", &p2);
 
     printf("Before ROTATE: ");
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < N; i++) {
         printf("%d ", arr[i]);
     }
     printf("\n");
@@ -39,7 +38,7 @@ int main() {
     ROTATE_RIGHT(arr, p2);
 
     printf("After ROTATE: ");
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < N; i++) {
         printf("%d ", arr[i]);
     }
     printf("\n");

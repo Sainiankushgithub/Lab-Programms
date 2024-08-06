@@ -8,42 +8,26 @@ void calculatePrefixSum(int arr[], int prefixSum[], int n) {
     }
 }
 
-int main(int argc, char *argv[]) {
-    if (argc != 2) {
-        printf("Usage: %s <source_file>\n", argv[0]);
-        return 1;
-    }
-
-    char *sourceFileName = argv[1];
-    FILE *sourceFile = fopen(sourceFileName, "r");
-    if (!sourceFile) {
-        perror("Error opening source file");
-        return 1;
-    }
-
+int main() {
     int n;
-    fscanf(sourceFile, "%d", &n);
 
-    int *arr = (int *)malloc(n * sizeof(int));
-    int *prefixSum = (int *)malloc(n * sizeof(int));
-    if (!arr || !prefixSum) {
-        perror("Memory allocation failed");
-        fclose(sourceFile);
+    printf("Enter the size of the array: ");
+    scanf("%d", &n);
+
+    int *arr = (int*)malloc(n * sizeof(int));
+    int *prefixSum = (int*)malloc(n * sizeof(int));
+
+    if (arr == NULL || prefixSum == NULL) {
+        printf("Memory allocation failed\n");
         return 1;
     }
 
+    printf("Enter the elements of the array: ");
     for (int i = 0; i < n; i++) {
-        fscanf(sourceFile, "%d", &arr[i]);
+        scanf("%d", &arr[i]);
     }
-    fclose(sourceFile);
 
     calculatePrefixSum(arr, prefixSum, n);
-
-    printf("Input Array: ");
-    for (int i = 0; i < n; i++) {
-        printf("%d ", arr[i]);
-    }
-    printf("\n");
 
     printf("Prefix Sum Array: ");
     for (int i = 0; i < n; i++) {
@@ -53,5 +37,6 @@ int main(int argc, char *argv[]) {
 
     free(arr);
     free(prefixSum);
+
     return 0;
 }
