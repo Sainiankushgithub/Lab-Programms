@@ -18,12 +18,12 @@ void crateFile(const char*fileName1,const char*fileName2 ,const char*fileName3)
   srand(time(0));
   for(int i=0;i<n;i++)
   {
-    fprintf(file1,"%d ",((i*5)+1)+rand()%5);
+    fprintf(file1,"%d ",(i*5)+rand()%6);
   }
   printf("Ascending file created successfully\n");
   for(int i=n;i>=0;i--)
   {
-    fprintf(file2,"%d ",((i*5)+1)+rand()%5);
+    fprintf(file2,"%d ",(i*5)+rand()%6);
   }
   printf("Descending file created successfully\n");
   for(int i=0;i<n;i++)
@@ -38,5 +38,39 @@ void crateFile(const char*fileName1,const char*fileName2 ,const char*fileName3)
 int main()
 {
   crateFile("inQuickAsec.dat","inQuickDesc.dat","inQuickRand.dat");
+  printf("Main Menu\n");
+  printf("1.Ascending order\n2.Descending order\n3.Random order\n4.Error (Exit)\n");
+  int choice;
+  do
+  {
+    printf("Enter the choice :\n");
+    scanf("%d",&choice);
+    switch(choice)
+    {
+      case 1:
+      {
+        
+      }
+      case 2:
+      {
+
+      }
+      case 3:
+      {
+
+      }
+      case 4:
+      {
+        printf("Exiting the program\n");
+        break;
+      }
+      default :
+      {
+        printf("Invalid entry\n");
+        break;
+      }
+    }
+  } while (choice!=4);
+  
   return 0;
 }
