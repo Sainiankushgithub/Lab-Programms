@@ -40,6 +40,8 @@ void createFile(const char*file1,const char* file2,const char*file3)
   fclose(fileRand);
 }
 
+
+
 // MERGE  
 void merge(int arr[],int low,int mid,int high)
 {
