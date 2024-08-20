@@ -13,7 +13,7 @@ void crateFile(const char*fileName1,const char*fileName2 ,const char*fileName3)
     exit(1);
   }
   int n;
-  printf("Enter the number of elements you want to store in a file \n");
+  printf("Enter the number of entries you want to store in a file \n");
   scanf("%d",&n);
   srand(time(0));
   for(int i=0;i<n;i++)
