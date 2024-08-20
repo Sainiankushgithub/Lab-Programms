@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<time.h>
-#define size 10
+#define size 200
 int arr[size];
 long comparsion=0;
 // FILE CREATION 
