@@ -17,11 +17,15 @@ void displayWeightOfYoungest(struct person *students, int n);
 void insertPerson(struct person **students, int *n);
 void deleteOldest(struct person *students, int *n);
 void readData(struct person **students, int *n) {
-  
+
 }
 void heapify(struct person *students, int n, int i, int mode) {
+  if(mode==0)
+  {
+    // here we will the min heapify code 
+    
+  }
 }
-
 void createMinHeap(struct person *students, int n) {
     for (int i = n / 2 - 1; i >= 0; i--){
         heapify(students, n, i, 0);
