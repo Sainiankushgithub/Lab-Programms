@@ -87,6 +87,8 @@ float fractionalKnapsack(ITEM items[], int n, float capacity) {
         }
     }
 
+
+
     printf("Item No profit Weight Amount to be taken\n");
     for (int i = 0; i < n; i++) {
         printf("%d %.6f %.6f %.6f\n", items[i].item_id, items[i].item_profit, items[i].item_weight, amount_taken[i]);
@@ -94,6 +96,19 @@ float fractionalKnapsack(ITEM items[], int n, float capacity) {
     
     return total_profit;
 }
+
+/*
+void display(ITEM items[],int n)
+{
+  printf  ("Items |  profit   | weight  | profit_weight_ratio   |\n");
+  for(int i=0;i<n;i++)
+  {
+    printf("%d     |  %d        | %d       | %d       |\n",i+1,items[i].item_profit,items[i].item_weight,items[i].profit_weight_ratio);
+  }
+  printf("\n");
+}
+
+*/
 
 int main() {
     int n;
@@ -112,6 +127,9 @@ int main() {
     printf("Enter the capacity of knapsack: ");
     scanf("%f", &capacity);
 
+    // Fail to implement 
+    // printf("Displaying the table \n");
+    // display(items,n);
     float max_profit = fractionalKnapsack(items, n, capacity);
     printf("Maximum profit: %.6f\n", max_profit);
 
