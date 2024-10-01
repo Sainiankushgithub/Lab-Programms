@@ -74,7 +74,7 @@ float fractionalKnapsack(ITEM items[], int n, float capacity) {
         amount_taken[i] = 0; 
     }
 
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n; i++){                                                                                                                                        
         if (total_weight + items[i].item_weight <= capacity) {
             amount_taken[i] = 1.0;
             total_weight += items[i].item_weight;
