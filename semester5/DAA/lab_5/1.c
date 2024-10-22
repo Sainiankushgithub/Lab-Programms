@@ -69,7 +69,7 @@ float fractionalKnapsack(ITEM items[], int n, float capacity) {
     float total_profit = 0.0;
     float total_weight = 0.0;
     float amount_taken[n];
-
+                                                                                        
     for (int i = 0; i < n; i++) {
         amount_taken[i] = 0; 
     }
